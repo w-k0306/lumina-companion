@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const { chatRouter } = require("./routes/chat");
 const { personaRouter } = require("./routes/persona");
+const { sessionRouter } = require("./routes/session");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,8 +14,9 @@ app.use(express.json({ limit: "10mb" }));
 
 app.use("/api/chat", chatRouter);
 app.use("/api/persona", personaRouter);
+app.use("/api/session", sessionRouter);
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", name: "lumina", version: "1.0.0" });
+  res.json({ status: "ok", name: "lumina", version: "1.1.0" });
 });
 
 app.use(express.static(path.join(__dirname, "../public")));
