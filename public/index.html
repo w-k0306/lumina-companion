@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friend Echo 私人仿真聊天</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Friend Echo 首页">
+        <span class="brand-mark">FE</span>
+        <span>Friend Echo</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#create">创建角色</a>
+        <a href="#chat">聊天预览</a>
+        <a href="#clawbot">ClawBot</a>
+      </nav>
+      <a class="header-action" href="#create">开始制作</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="terminal-line">[ Friend.Echo ] persona warm-up...</p>
+          <h1>把聊天记录变成一个会用朋友语气说话的 AI 角色</h1>
+          <p class="hero-subtitle">
+            自用娱乐版陪伴 AI。上传你和朋友都同意使用的聊天记录，生成语气、口头禅和聊天节奏相似的仿微信角色，未来可接入 OpenClaw / ClawBot。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#create">生成我的角色</a>
+            <a class="button ghost" href="#chat">先看效果</a>
+          </div>
+          <div class="trust-row" aria-label="安全说明">
+            <span>本地原型</span>
+            <span>保留仿真标识</span>
+            <span>不冒充真人</span>
+          </div>
+        </div>
+
+        <div class="phone-stage" aria-label="仿微信聊天预览">
+          <div class="signal-card">
+            <span class="pulse"></span>
+            ClawBot bridge ready
+          </div>
+          <div class="phone-shell">
+            <div class="phone-top">
+              <span class="back-dot"></span>
+              <div>
+                <strong>阿林 Bot</strong>
+                <small>仿真角色 · 仅供娱乐</small>
+              </div>
+              <span class="more-dot"></span>
+            </div>
+            <div class="chat-preview">
+              <div class="message incoming">
+                你先别急，我感觉这事有点靠谱，但你得把细节讲完整。
+              </div>
+              <div class="message outgoing">如果我今晚把网站做出来呢？</div>
+              <div class="message incoming short">那我宣布你有点东西。</div>
+              <div class="typing">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="composer">
+              <span>今晚吃啥？</span>
+              <button type="button">发送</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-band">
+        <p>不是公开社交，也不是替身账号。</p>
+        <strong>只是你和朋友之间，一个好玩、可控、带边界的私人角色实验。</strong>
+      </section>
+
+      <section id="create" class="workspace">
+        <div class="section-heading">
+          <p class="eyebrow">Create Persona</p>
+          <h2>三步生成一个“像 TA 说话”的角色</h2>
+        </div>
+
+        <div class="creator-grid">
+          <article class="upload-panel">
+            <div class="panel-head">
+              <span>01</span>
+              <h3>导入聊天记录</h3>
+            </div>
+            <label class="drop-zone" for="chat-file">
+              <input id="chat-file" type="file" accept=".txt,.csv,.json" />
+              <span class="upload-icon">+</span>
+              <strong>拖拽或点击上传微信聊天记录</strong>
+              <small>支持 txt / csv / json，也可以直接粘贴文本</small>
+            </label>
+            <textarea
+              id="chatText"
+              placeholder="示例：&#10;我：你今天忙吗？&#10;朋友：忙死了，笑死，感觉魂都在公司。&#10;我：晚上出来吃饭？&#10;朋友：你先别急，让我活过五点。"
+            ></textarea>
+            <div class="privacy-note">
+              上传前请确认聊天对象知情或同意。建议删掉手机号、地址、证件号、工作机密等敏感内容。
+            </div>
+          </article>
+
+          <article class="control-panel">
+            <div class="panel-head">
+              <span>02</span>
+              <h3>调整角色参数</h3>
+            </div>
+            <label>
+              角色昵称
+              <input id="personaName" value="阿林 Bot" />
+            </label>
+            <label>
+              你们的关系
+              <select id="relation">
+                <option>朋友</option>
+                <option>恋人</option>
+                <option>前任</option>
+                <option>同学</option>
+                <option>同事</option>
+              </select>
+            </label>
+            <label>
+              相似程度
+              <input id="similarity" type="range" min="1" max="3" value="2" />
+              <span class="range-label">比较像，但保留安全边界</span>
+            </label>
+            <div class="switch-list">
+              <label><input type="checkbox" checked /> 显示“仿真角色”标识</label>
+              <label><input type="checkbox" checked /> 避免输出隐私信息</label>
+              <label><input type="checkbox" checked /> 不代替本人做承诺</label>
+            </div>
+            <button id="generateBtn" class="button primary wide" type="button">生成角色卡</button>
+          </article>
+
+          <article class="persona-card" id="personaCard">
+            <div class="panel-head">
+              <span>03</span>
+              <h3>角色预览</h3>
+            </div>
+            <div class="avatar-orbit">
+              <div class="avatar">林</div>
+            </div>
+            <h4 id="cardName">阿林 Bot</h4>
+            <p id="cardDesc">偏熟人聊天，短句多，喜欢先吐槽再认真回应。</p>
+            <div class="tags" id="tagList">
+              <span>嘴硬心软</span>
+              <span>爱吐槽</span>
+              <span>短句回复</span>
+              <span>熟人语气</span>
+            </div>
+            <div class="quote-card" id="quoteCard">“你先别急，我感觉有点靠谱但也有点离谱。”</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="chat" class="chat-lab">
+        <div class="lab-copy">
+          <p class="eyebrow">Chat Preview</p>
+          <h2>像微信一样试聊，不急着真的接入微信</h2>
+          <p>
+            第一版先在网页里把角色效果调准。等你觉得“像了”，再把它接到 OpenClaw 微信通道，让 ClawBot 负责收发消息。
+          </p>
+          <div class="quick-prompts">
+            <button type="button" data-prompt="你觉得我今天这个想法靠谱吗？">帮我做决定</button>
+            <button type="button" data-prompt="今天真的有点累。">聊聊近况</button>
+            <button type="button" data-prompt="晚上吃什么，我选择困难了。">随机闲聊</button>
+          </div>
+        </div>
+
+        <div class="wechat-window">
+          <div class="wechat-title">
+            <div class="mini-avatar">林</div>
+            <div>
+              <strong id="chatName">阿林 Bot</strong>
+              <small>仿真角色 · 仅供娱乐</small>
+            </div>
+          </div>
+          <div class="chat-stream" id="chatStream">
+            <div class="bubble bot">你来了？我刚还在想你是不是又要搞个大的。</div>
+            <div class="bubble user">我想做一个像 Cecho 那样的自用网站。</div>
+            <div class="bubble bot">可以啊，但别一上来搞太复杂。先把上传记录和聊天体验做顺。</div>
+          </div>
+          <form class="chat-form" id="chatForm">
+            <input id="messageInput" placeholder="发点什么试试，比如：今晚吃啥？" autocomplete="off" />
+            <button type="submit">发送</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="clawbot" class="integration">
+        <div class="integration-card">
+          <p class="eyebrow">ClawBot Roadmap</p>
+          <h2>未来接入微信 ClawBot 协议</h2>
+          <p>
+            当前页面是角色后台原型。后续可以把角色配置、记忆和回复策略接到 OpenClaw Gateway，由微信 ClawBot 通道把消息转进来。
+          </p>
+          <div class="flow">
+            <span>微信消息</span>
+            <i></i>
+            <span>ClawBot</span>
+            <i></i>
+            <span>OpenClaw</span>
+            <i></i>
+            <span>Friend Echo 角色引擎</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Friend Echo · private prototype</span>
+      <span>请勿用于冒充真人或未经同意的聊天复刻</span>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
