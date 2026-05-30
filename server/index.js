@@ -4,22 +4,17 @@ const cors = require("cors");
 const path = require("path");
 const { chatRouter } = require("./routes/chat");
 const { personaRouter } = require("./routes/persona");
-const { sessionRouter } = require("./routes/session");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : "*",
-  credentials: true
-}));
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json({ limit: "10mb" }));
 
 app.use("/api/chat", chatRouter);
 app.use("/api/persona", personaRouter);
-app.use("/api/session", sessionRouter);
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", name: "lumina", version: "0.1.0" });
+  res.json({ status: "ok", name: "lumina", version: "1.0.0" });
 });
 
 app.use(express.static(path.join(__dirname, "../public")));
@@ -33,5 +28,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log("[Lumina] running on port " + PORT);
+  console.log(`[Lumina] running on http://localhost:${PORT}`);
 });

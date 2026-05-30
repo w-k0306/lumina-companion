@@ -1,45 +1,68 @@
-# Lumina
+# Lumina · AI 陪伴伙伴
 
-> _Where silence finds its voice._
+> 一个自用的仿陪伴 AI 网站，灵感来自 cecho.top，仅供娱乐。
 
-Lumina 是一个轻量级 AI 陪伴系统。不追求全能，只追求**在场感**。
+## ✨ 特性
 
-## 设计哲学
+- 🎨 **深色沉浸主题** — 青色 + 琥珀金配色，粒子背景，呼吸光效
+- 📝 **上传聊天记录** — 支持 txt / csv / json，也支持直接粘贴
+- 🤖 **AI 风格分析** — 使用 MiMo 模型分析聊天记录，生成角色配置
+- 💬 **流式对话** — SSE 流式打字效果，实时响应
+- 🎭 **仿真标识** — 强制显示"仿真角色"标识，不冒充真人
 
-- 🌙 **极简** — 没有多余的 UI 元素，只有你和对话
-- 🫧 **呼吸感** — 界面会随时间和情绪微妙变化
-- 🔮 **记忆** — 它记得你说过的事，但不会让你觉得被监视
-- 🎐 **克制** — 不主动打扰，但永远在那里
-
-## 技术栈
-
-- **前端**: Vanilla JS + CSS Animations
-- **后端**: Node.js + Express
-- **AI**: OpenAI-compatible API
-- **部署**: Vercel / Cloudflare Pages
-
-## 快速开始
+## 🚀 快速开始
 
 ```bash
 git clone https://github.com/w-k0306/lumina-companion.git
 cd lumina-companion
 npm install
 cp .env.example .env
-# 编辑 .env 填入你的 AI API Key
-npm run dev
+# 编辑 .env 填入你的 MiMo API Key
+npm start
+# 打开 http://localhost:3000
 ```
 
-## API 接口
+## 🔧 环境变量
 
--  — 发送消息（SSE 流式响应）
--  — 获取对话历史
--  — 创建新会话
--  — 健康检查
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| `PORT` | 服务端口 | `3000` |
+| `AI_API_URL` | AI API 地址 | `https://token-plan-cn.xiaomimimo.com/v1` |
+| `AI_API_KEY` | API Key | - |
+| `AI_MODEL` | 模型名 | `mimo-v2.5-pro` |
 
-## License
+## 📁 项目结构
 
-MIT
+```
+├── public/              # 前端
+│   ├── index.html       # 主页面
+│   ├── styles.css       # 样式
+│   └── script.js        # 交互逻辑
+├── server/              # 后端
+│   ├── index.js         # Express 入口
+│   ├── routes/
+│   │   ├── chat.js      # 聊天 API（SSE）
+│   │   └── persona.js   # 角色管理 API
+│   └── services/
+│       ├── ai.js        # AI 接口封装
+│       ├── memory.js    # 会话内存存储
+│       └── persona.js   # 角色分析服务
+├── .env.example
+└── package.json
+```
+
+## 📡 API 接口
+
+- `POST /api/chat` — 发送消息（SSE 流式响应）
+- `POST /api/persona/analyze` — 分析聊天记录生成角色
+- `POST /api/persona/quick` — 快速创建预设角色
+- `GET /api/persona/:id` — 获取角色信息
+- `GET /api/health` — 健康检查
+
+## ⚠️ 声明
+
+本项目仅供个人娱乐使用，请勿用于冒充真人或未经同意的聊天复刻。
 
 ---
 
-_Built with quiet intention._
+_Built with Lumina 🦞_
