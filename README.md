@@ -9,6 +9,8 @@
 - 🤖 **AI 风格分析** — 使用 MiMo 模型分析聊天记录，生成角色配置
 - 💬 **流式对话** — SSE 流式打字效果，实时响应
 - 🎭 **仿真标识** — 强制显示"仿真角色"标识，不冒充真人
+- 🔐 **会话管理** — 多会话支持，独立记忆，持久化存储
+- 📎 **绑定码功能** — 通过绑定码关联会话，跨设备同步
 
 ## 🚀 快速开始
 
@@ -42,22 +44,46 @@ npm start
 │   ├── index.js         # Express 入口
 │   ├── routes/
 │   │   ├── chat.js      # 聊天 API（SSE）
-│   │   └── persona.js   # 角色管理 API
+│   │   ├── persona.js   # 角色管理 API
+│   │   ├── session.js   # 会话管理 API
+│   │   └── bindcode.js  # 绑定码 API
 │   └── services/
 │       ├── ai.js        # AI 接口封装
 │       ├── memory.js    # 会话内存存储
 │       └── persona.js   # 角色分析服务
+├── data/                # 持久化数据（JSON）
 ├── .env.example
 └── package.json
 ```
 
 ## 📡 API 接口
 
+### 聊天
 - `POST /api/chat` — 发送消息（SSE 流式响应）
+
+### 角色管理
 - `POST /api/persona/analyze` — 分析聊天记录生成角色
 - `POST /api/persona/quick` — 快速创建预设角色
 - `GET /api/persona/:id` — 获取角色信息
+
+### 会话管理
+- `POST /api/session` — 创建会话
+- `GET /api/session/:id` — 获取会话信息
+- `GET /api/session/:id/messages` — 获取会话消息历史
+
+### 绑定码
+- `POST /api/bindcode/generate` — 生成绑定码
+- `POST /api/bindcode/verify` — 验证绑定码
+
+### 系统
 - `GET /api/health` — 健康检查
+
+## 🛠️ 技术栈
+
+- **前端：** 原生 HTML/CSS/JS，无框架
+- **后端：** Node.js + Express
+- **AI：** 小米 MiMo API（OpenAI 兼容）
+- **存储：** JSON 文件持久化
 
 ## ⚠️ 声明
 
